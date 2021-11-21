@@ -1,18 +1,20 @@
 package com.dietrich.landing.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -21,13 +23,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+import com.dietrich.landing.svc.UploaderSvc;
+
+@RestController
 public class PiLandingController implements ApplicationContextAware {
 
+	@Autowired
+	UploaderSvc upSvc;
 	private ApplicationContext context;
 
 	@GetMapping("/")
@@ -41,8 +48,8 @@ public class PiLandingController implements ApplicationContextAware {
 		System.out.println(System.getProperty("user.dir"));
 		// Creating object of class File where
 		// Dot represents the current directory
-		File currentDir = new File(System.getProperty("user.dir"));
-		displayDirectory(currentDir);
+//				File currentDir = new File(System.getProperty("user.dir"));
+//				displayDirectory(currentDir);
 		return modelAndView;
 	}
 
@@ -75,7 +82,16 @@ public class PiLandingController implements ApplicationContextAware {
 		}
 	}
 
-	@PostMapping("/shutdown")
+	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    public ModelAndView uploadFileHandler(@RequestParam("file") MultipartFile file) {
+		System.out.println(file.getContentType());
+		System.out.println(file.getOriginalFilename());
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("uploys.html");
+		return modelAndView;
+	}
+
+	@GetMapping("/shutdown")
 	public void shutdown() {
 		((ConfigurableApplicationContext) context).close();
 	}

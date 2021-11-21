@@ -4,20 +4,11 @@
 <body>
 
 	<h1>UUUUPLOADERS PAAAAAAGE</h1>
-	<form method="POST" action="/shutdown">
-		<br /> <input type="submit" value="Suicide" />
-	</form>
-	<form method="POST" action="/uploadFile"
+	<button onclick="window.location.href='/shutdown';">Suicide</button>
+	<form action="#" method="POST" th:action="@{/uploadFile}"
 		enctype="multipart/form-data">
-		<table>
-			<tr>
-				<td><label path="file">Select a file to upload</label></td>
-				<td><input type="file" name="file" /></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Submit" /></td>
-			</tr>
-		</table>
+		File to upload: <input type="file" name="file"><br /> 
+		<input type="submit" value="Upload"> Press here to upload the file!
 	</form>
 </body>
 </html>
