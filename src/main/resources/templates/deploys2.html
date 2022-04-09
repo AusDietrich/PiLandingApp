@@ -20,18 +20,11 @@
 				th:object="${ledEntity}" method="POST">
 				<div style="text-align: center" class="col-3"
 					th:each="led, index : ${LedString}">
-					<span th:utext="${led.input}"></span> 
-					<input type="text"
+					<span th:utext="${led.input}"></span> <input type="text"
 						th:field="*{para}" th:id="colorId+${index.count}"
-						value="000.000.000" style="width:100px"/>
-				</div><br/>
-				<button type="submit" class="btn btn-primary col-2">Send</button>
-			</form>
-			<form class="row" action="#" th:action="@{/ledStripRainbowOn}" method="POST">
-				<button type="submit" class="btn btn-primary col-2">Rainbow On</button>
-			</form>
-			<form class="row" action="#" th:action="@{/ledStripRainbowOff}" method="POST">
-				<button type="submit" class="btn btn-primary col-2">LED's Off</button>
+						value="000.000.000" />
+				</div>
+				<button type="submit" class="btn btn-primary col-2">Save</button>
 			</form>
 		</div>
 	</div>

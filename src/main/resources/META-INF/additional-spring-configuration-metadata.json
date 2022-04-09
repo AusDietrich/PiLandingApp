@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "usersName",
-  "type": "java.lang.String",
-  "description": "A description for 'usersName'"
-}]}
+{"properties": [
+  {
+    "name": "usersName",
+    "type": "java.lang.String",
+    "description": "A description for 'usersName'"
+  },
+  {
+    "name": "hibernate.dialect",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.dialect'"
+  }
+]}
